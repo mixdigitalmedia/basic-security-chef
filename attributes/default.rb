@@ -1,4 +1,4 @@
-# Author:: Mix Digital Media
+# Author:: Mix Digital Media, LLC
 # Cookbook Name:: basic-security-chef
 # Attributes:: default
 #
