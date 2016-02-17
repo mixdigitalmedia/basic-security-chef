@@ -56,8 +56,18 @@ bash 'ssh hardening' do
   EOC
 end
 
+# swiped from here:
+# https://github.com/adepue/openssh/blob/ee32e90bc66d94a22b0ff82814e49d8d1b3d931e/recipes/default.rb
+if  'ubuntu' == node['platform']
+  if Chef::VersionConstraint.new('>= 15.04').include?(node['platform_version'])
+    service_provider = Chef::Provider::Service::Systemd
+  elsif Chef::VersionConstraint.new('>= 12.04').include?(node['platform_version'])
+    service_provider = Chef::Provider::Service::Upstart
+  end
+end
+
 service 'ssh' do
-  provider Chef::Provider::Service::Upstart
+  provider service_provider
   supports :restart => true
   action :restart
 end
